@@ -1,29 +1,35 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { TodoContextProvider } from './Context/Todocontext'
+import TodoForm from './Component/TodoForm'
+import TodoItem from './Component/TodoItem'
+
 
 function App() {
 
-  const [todos, settodos] = useState("")
+  const [todos, settodos] = useState([])
 
   const AddTodo = (todo) => {
     settodos((prev) => [{ id: Date.now(), ...todo }, ...prev])
   }
 
   const EditTodo = (id, todo) => {
-    settodos((prev) => {
-      prev.map((prevTodo) => {
+    settodos((prev) =>
+      prev.map((prevTodo) =>
         prevTodo.id === id ? todo : prevTodo
-      })
-    })
+      )
+    )
   }
 
   const DeleteTodo = (id) => {
-    settodos((prev) => prev.filter((prevTodo) => { prevTodo.id !== id }))
+    settodos((prev) => prev.filter((prevTodo) => (prevTodo.id !== id)))
   }
 
   const ToggleCompleteTodo = (id) => {
-    settodos((prev) => { prev.map((prevTodo) => { prevTodo.id === id ? { ...prevTodo, Completed: !prevTodo.Completed } : prevTodo }) })
+    settodos((prev) =>
+      prev.map((prevTodo) =>
+        prevTodo.id === id ? { ...prevTodo, Completed: !prevTodo.Completed } : prevTodo)
+    )
   }
 
   useEffect(() => {
